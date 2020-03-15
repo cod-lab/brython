@@ -1,0 +1,56 @@
+from browser import document
+def power(event):
+	key = document['on'].id
+	if key == "on":
+		key = "off"
+		document["on"].id = key
+		document["msg"].textContent="click power button to turn-off system"
+		document["pc"].src="imgs\pcON.png"
+		document["box"].classList.remove("hidden")
+	else:
+		key = "on"
+		document["off"].id = key
+		document["msg"].textContent="click power button to turn-on system"
+		document["pc"].src="imgs\pcOFF.png"
+		document["box"].classList.add("hidden")
+
+document[key].bind("click", power)
+
+from browser import document
+def power(event):
+	#execution after id=on -->
+	if document["off"].id == "off":
+		document["pc"].src="imgs\pcON.png"
+		document["box"].classList.remove("hidden")
+		document["msg"].textContent="click power button to turn-off system"
+		document["off"].id = "on"
+	#execution after id=off -->
+	else:
+		document["on"].id = "off"
+		document["pc"].src="imgs\pcOFF.png"
+		document["box"].classList.add("hidden")
+		document["msg"].textContent="click power button to turn-on system"
+
+document[key].bind("click", power)
+
+
+bullet_state = "readytofire"
+def bfire():
+    global bullet_state
+    if bullet_state == "readytofire":
+        winsound.PlaySound("bullet.wav", winsound.SND_ASYNC)                #gives sound effects in windows
+        x = player.xcor()
+        y = player.ycor() + 10
+        bullet.setposition(x,y)
+        bullet.showturtle()
+        bullet_state = "fire"
+
+while True:
+	if bullet_state == "fire":
+	        y = bullet.ycor()
+	        y += bullet_spd
+	        if y<276:	                    #not yet bullet collided with top boundary
+	            bullet.sety(y)
+	        else:                           #now bullet collided with top boundary
+	            bullet.hideturtle()
+	            bullet_state = "readytofire"

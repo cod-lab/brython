@@ -51,51 +51,73 @@
 				left: 320px;
 				top: 235px;	
 			}
-			#onoffBtn {
+			#off {
 				width: 30px;
 				height: 20px;
 				background-color: transparent;
 				border: 0;	
 			} 
+			#on {
+				width: 30px;
+				height: 20px;
+				background-color: transparent;
+				border: 0;
+			}
 			#clearDiv {margin-top: 45px;}
+			@font-face {
+				font-family: myfont;
+				src: url(Bellota/Bellota-Regular.ttf);
+			}
+			p {
+				font-family: myfont;
+				font-weight: bold;
+				font-size: 20;
+				/*font-style: italic;*/
+				position: absolute;
+					left: 4.8%;
+				/*margin-left: 10%;*/
+			}
 		</style>		
 		<script type="text/javascript" src="brython.js"></script>
 		<script type="text/javascript" src="brython_stdlib.js"></script>
 	</head>
 	<body onload="brython()">
-		<img id='pc' src="imgs\pcOFF.png">
-		<div id='box' class='hidden'>
-			<div id='title'>
-				<img src="imgs\title.png" class="words">
-			</div>
-			<div id='kw'>
-				<div><img src="imgs\keyword.png" class="words"></div>
-				<div><input id='keywordIn'></div>
-				<div id='clearDiv'>
-					<button id='clearBtn'>clear</button>
+		<div id='main'>
+			<img id='pc' src="imgs\pcOFF.png">
+			<div id='box' class='hidden'>
+				<div id='title'>
+					<img src="imgs\title.png" class="words">
+				</div>
+				<div id='kw'>
+					<div><img src="imgs\keyword.png" class="words"></div>
+					<div><input id='keywordIn'></div>
+					<div id='clearDiv'>
+						<button id='clearBtn'>clear</button>
+					</div>
+				</div>
+				<div id='cd'>
+					<div><img src="imgs\toCipher.png" class="words"></div>
+					<div>
+						<input id='cipherIn'>
+						<button id='cipherBtn'>>></button>
+					</div>
+					<div><img src="imgs\toDecipher.png" class="words"></div>
+					<div>
+						<input id='decipherIn'>
+						<button id='decipherBtn'>>></button>
+					</div>
+				</div>
+				<div id='res'>
+					<div><img src="imgs\secret.png" class="words"></div>
+					<input id="secretIn">
+					<div><img src="imgs\message.png" class="words"></div>
+					<input id="messageIn">
 				</div>
 			</div>
-			<div id='cd'>
-				<div><img src="imgs\toCipher.png" class="words"></div>
-				<div>
-					<input id='cipherIn'>
-					<button id='cipherBtn'>>></button>
-				</div>
-				<div><img src="imgs\toDecipher.png" class="words"></div>
-				<div>
-					<input id='decipherIn'>
-					<button id='decipherBtn'>>></button>
-				</div>
+			<div id='onoff'>
+				<button class="abc" id='off'></button>
 			</div>
-			<div id='res'>
-				<div><img src="imgs\secret.png" class="words"></div>
-				<input id="secretIn">
-				<div><img src="imgs\message.png" class="words"></div>
-				<input id="messageIn">
-			</div>
-		</div>
-		<div id='onoff'>
-			<button id='onoffBtn'></button>
+			<p id='msg'>click power button to turn-on system</p>
 		</div>
 	</body>
 </html>
@@ -113,14 +135,32 @@ clearFields = () => {
 </script>
 
 <script type="text/python">
-# 1) Basic DOM manipulation :: turn on computer
+# 1) Basic DOM manipulation :: turn on/off computer
 
 from browser import document
-def turnOnComputer(event):
-	document["pc"].src="imgs\pcON.png"
-	document["box"].classList.remove("hidden")
+key = document["off"].id
+def powerBtn(event):
+	global key
+	#execution after id=on -->
+	if key == "off":
+		document[key].id = "on"								#this is also correct --> document["off"].id = "on"
+		document["pc"].src="imgs\pcON.png"
+		document["box"].classList.remove("hidden")
+		document["msg"].textContent="click power button to turn-OFF system"
+		key = document["on"].id
+		document["keywordIn"].placeholder = "no special chars allowed";
+		document["cipherIn"].placeholder = "no special chars allowed";
+		document["decipherIn"].placeholder = "enter secret msg";
+	#execution after id=off -->
+	else:
+		document[key].id = "off"							#this is also correct --> document["on"].id = "off"
+		document["pc"].src="imgs\pcOFF.png"
+		document["box"].classList.add("hidden")
+		document["msg"].textContent="click power button to turn-ON system"
+		window.clearFields()								#clear all fields
+		key = document["off"].id
 
-document["onoffBtn"].bind("click", turnOnComputer)
+document[key].bind("click", powerBtn)
 
 # 2) How to import your code :: Activate cipher 
 
@@ -155,4 +195,5 @@ def execJSFunc(event):
 	window.clearFields()
 
 document["clearBtn"].bind("click", execJSFunc)
+
 </script>
