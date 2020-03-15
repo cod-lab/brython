@@ -143,7 +143,7 @@ def powerBtn(event):
 	global key
 	#execution after id=on -->
 	if key == "off":
-		document[key].id = "on"								#this is also correct --> document["off"].id = "on"
+		document[key].id = "on"						#this is also correct --> document["off"].id = "on"
 		document["pc"].src="imgs\pcON.png"
 		document["box"].classList.remove("hidden")
 		document["msg"].textContent="click power button to turn-OFF system"
@@ -153,11 +153,11 @@ def powerBtn(event):
 		document["decipherIn"].placeholder = "enter secret msg";
 	#execution after id=off -->
 	else:
-		document[key].id = "off"							#this is also correct --> document["on"].id = "off"
+		document[key].id = "off"					#this is also correct --> document["on"].id = "off"
 		document["pc"].src="imgs\pcOFF.png"
 		document["box"].classList.add("hidden")
 		document["msg"].textContent="click power button to turn-ON system"
-		window.clearFields()								#clear all fields
+		window.clearFields()						#clear all fields
 		key = document["off"].id
 
 document[key].bind("click", powerBtn)
