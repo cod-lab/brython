@@ -74,7 +74,7 @@
 				font-size: 20;
 				/*font-style: italic;*/
 				position: absolute;
-					left: 4.8%;
+					left: 7.5%;
 				/*margin-left: 10%;*/
 			}
 		</style>		
@@ -151,6 +151,8 @@ def powerBtn(event):
 		document["keywordIn"].placeholder = "no special chars allowed";
 		document["cipherIn"].placeholder = "no special chars allowed";
 		document["decipherIn"].placeholder = "enter secret msg";
+		document["secretIn"].placeholder = "press arrow to get secret";
+		document["messageIn"].placeholder = "press arrow to get msg";
 	#execution after id=off -->
 	else:
 		document[key].id = "off"					#this is also correct --> document["on"].id = "off"
