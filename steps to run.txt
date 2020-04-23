@@ -1,0 +1,5 @@
+STEPS:-
+1. open terminal and locate it to this folder in your OS
+2. run command "python -m http.server 8000" in terminal
+   -here port can be any but must be of 4 or 5 digits only
+3. open browser and type url "localhost:8000" OR "http://127.0.0.1:8000/"
